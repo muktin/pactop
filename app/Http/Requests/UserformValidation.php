@@ -16,6 +16,7 @@ class UserformValidation extends FormRequest
         return true;
     }
 
+	
     /**
      * Get the validation rules that apply to the request.
      *
@@ -46,7 +47,8 @@ class UserformValidation extends FormRequest
     public function messages()
     {
         return [
-			'required'=> 'This Field is Required.'
+			'required'=> 'This Field is Required.',
+			
 		];
     }
 	
