@@ -32,5 +32,12 @@ function CheckValidaCheckBoxPermission(){
 	
 }
 
+function ActiveDeactive(id){
+	
+	
+	
+	
+}
+
 
 

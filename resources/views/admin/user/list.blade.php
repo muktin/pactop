@@ -57,7 +57,7 @@
 							  </div>
 							</td>
                             @if($user->status =='1')
-							<td><div class="badge badge-success">Active</div></td>
+							<td><div class="badge badge-success" onclick=" ActiveDeactive()">Active</div></td>
 							@else
 							<td><div class="badge badge-danger">Not Active</div></td>
 							@endif 
