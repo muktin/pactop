@@ -89,11 +89,15 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="formModal">User Roles</h5>
+				 &nbsp;&nbsp;&nbsp;&nbsp;<div class="alert alert-danger" role="alert">
+  This is a danger alert—check it out!
+</div>
+				
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-			  <form class="needs-validation" novalidate="" action="{{ route('admin.user.assignRole') }}" method="POST">
+			  <form class="needs-validation" novalidate="" action="{{ route('admin.user.assignRole') }}" method="POST" onsubmit="return CheckValidaCheckBox()">
 					 @csrf
 			   <div class="row">
 				  <div class="col-12">
@@ -114,7 +118,7 @@
 							  </tr>
 							</thead>
 							<tbody>
-							<input type="text" name="user_id"  id="mapping_user_id" value="">
+							<input type="hidden" name="user_id"  id="mapping_user_id" value="">
 							@if(!$rolesData->isEmpty())
 							  @foreach($rolesData as $rolesDatas)
 							  <tr>
@@ -123,7 +127,7 @@
 								<td>{{ Auth::user()->name }}</td>
 								<td class="text-center pt-2">
 								  <div class="custom-checkbox custom-control">
-									<input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-{{ $rolesDatas->id }}" name="roleassign[{{ $rolesDatas->id }}]" value="{{ $rolesDatas->id }}">
+									<input type="checkbox" data-checkboxes="mygroup" class="custom-control-input roleassign" id="checkbox-{{ $rolesDatas->id }}" name="roleassign[{{ $rolesDatas->id }}]" value="{{ $rolesDatas->id }}" >
 									<label for="checkbox-{{ $rolesDatas->id }}" class="custom-control-label">&nbsp;</label>
 								  </div>
 								</td>

@@ -163,13 +163,14 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function assignRole(Request $request)
+    public function assignRole(request $request)
     {
 		// get all role id
 		$roleassign = $request->input('roleassign');
-		//print_r($roleassign);
-		//die;
-		if(!empty($roleassign)){
+		// get user id 
+		$user_id = $request->input('user_id');
+		// check to not empty 
+		if(!empty($roleassign) && !empty($user_id)){
 		// get user id with mapping multiple role id
 		$user_id = $request->input('user_id');
 			foreach($roleassign as $roleId){
@@ -194,9 +195,11 @@ class UserController extends Controller
 					]);
 				} 			
 			}
-		return redirect('admin/user/view')->with('sucess', 'User Role mapping has been mapped successfully!!');		
+			
+			//reditrection to view after success mapping user with role
+			return redirect('admin/user/view')->with('sucess', 'User Role mapping has been mapped successfully!!');		
 		}else{
-			return redirect('admin/user/view')->with('sucess', 'Select minimum one role!!');
+			return redirect('admin/user/view')->with('error', 'Select minimum one role!!');
 		}
 	}
 	
