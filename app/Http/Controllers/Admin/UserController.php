@@ -165,6 +165,7 @@ class UserController extends Controller
      */
     public function assignRole(request $request)
     {
+		
 		// get all role id
 		$roleassign = $request->input('roleassign');
 		// get user id 

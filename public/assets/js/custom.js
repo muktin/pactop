@@ -18,23 +18,17 @@ function UserAssignPermissionID(permission_id){
 
 function CheckValidaCheckBox(){
 	if($('.roleassign:checked').length == 0){
-		alert('uuudfuho gaya');
+		$('.alerts').html('<span style="color:red">Select minimum one role!!!</span>');
 		return false;
 	}
+}
+
+function CheckValidaCheckBoxPermission(){
 	
-	if($('.roleassign:checked').length == 0){
-		alert('uuudfuho gaya');
+	if($('.permissionassign:checked').length == 0){
+		$('.alerts').html('<span style="color:red">Select minimum one role!!!</span>');
 		return false;
 	}
-	
-	return false;
-	/*
-	
-	
-	*/
-	
-	
-	
 	
 }
 

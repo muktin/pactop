@@ -89,16 +89,16 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="formModal">User Roles</h5>
-				 &nbsp;&nbsp;&nbsp;&nbsp;<div class="alert alert-danger" role="alert">
-  This is a danger alert—check it out!
-</div>
+				 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="alerts"> </div>
 				
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
+			  
 			  <form class="needs-validation" novalidate="" action="{{ route('admin.user.assignRole') }}" method="POST" onsubmit="return CheckValidaCheckBox()">
 					 @csrf
+					 <input type="hidden" name="user_id"  id="mapping_user_id" value="">
 			   <div class="row">
 				  <div class="col-12">
 					<div class="card">
@@ -118,7 +118,7 @@
 							  </tr>
 							</thead>
 							<tbody>
-							<input type="hidden" name="user_id"  id="mapping_user_id" value="">
+							
 							@if(!$rolesData->isEmpty())
 							  @foreach($rolesData as $rolesDatas)
 							  <tr>
