@@ -55,9 +55,9 @@ class CardStatusController extends Controller
         $insert_data->updated_by = Auth::user()->id;
         // dd($payment_type); exit;
         if( $insert_data->save() ){
-            return redirect()->route('admin.card_status.create')->with('success', 'Data Added successfully.');
+            return redirect()->route('admin.card_status.create')->with('sucess', 'Data Added successfully.');
         }else{
-            return redirect()->route('admin.card_status.create')->with('Warning', 'DB error.');
+            return redirect()->route('admin.card_status.create')->with('error', 'DB error.');
         }
     }
 
@@ -108,7 +108,7 @@ class CardStatusController extends Controller
         if( $update_data->save() ){
             return redirect()->route('admin.card_status.edit', $id)->with('success', 'Data Added successfully.');
         }else{
-            return redirect()->route('admin.card_status.edit', $id)->with('Warning', 'DB error.');
+            return redirect()->route('admin.card_status.edit', $id)->with('error', 'DB error.');
         }
     }
 

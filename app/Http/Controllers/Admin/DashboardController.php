@@ -15,8 +15,7 @@ class DashboardController extends Controller
 
     public function index()
     {
-		$userData=User::find(Auth::user()->id);
-		return view('admin.dashboard',['usersLoginData'=>$userData]);
+		return view('admin.dashboard');
 
     } 
 	
@@ -29,7 +28,6 @@ class DashboardController extends Controller
     public function profile()
     {
         $usersData=User::find(Auth::user()->id);
-		
         return view('admin.layouts.profile',['users'=>$usersData]);
     }
 	

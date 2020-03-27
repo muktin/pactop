@@ -5,8 +5,7 @@
             </a>
           </div>
           <ul class="sidebar-menu">
-<
-            <li class="menu-header">Main</li>
+            <!--<li class="menu-header">Main</li>-->
             <li class="dropdown active">
               <a href="{{ route('admin.dashboard') }}" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
             </li>

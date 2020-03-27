@@ -7,11 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<<<<<<< HEAD
-    <title>{{ config('app.name', 'Laravel') }}</title>
-=======
     <title>{{ config('app.name', 'Pactop') }}</title>
->>>>>>> 6a3b7ae03681486c87a91ee70f7b4743c7482cfc
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -28,11 +24,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-<<<<<<< HEAD
-                    {{ config('app.name', 'Laravel') }}
-=======
                     {{ config('app.name', 'Pactop') }}
->>>>>>> 6a3b7ae03681486c87a91ee70f7b4743c7482cfc
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>

@@ -112,7 +112,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    
+    {
       
         $usereditData=Userdetail::find($id);
         return view('admin.user.edit',['users'=>$usereditData]);
