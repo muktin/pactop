@@ -55,16 +55,6 @@
 								</button>
 							  </div>
 							</td>
-							<td><div class="dropdown">
-							  <a href="#" data-toggle="dropdown" class="btn btn-warning dropdown-toggle" aria-expanded="false">Options</a>
-							  <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 26px, 0px); top: 0px; left: 0px; will-change: transform;">
-								<div class="dropdown-item has-icon badge"> Active</div>
-								<div class="dropdown-divider"></div>
-								<div class="dropdown-item has-icon text-danger badge">
-								  Not Active</div>
-							  </div>
-							</div>
-							</td>
                             @if($user->status =='1')
 							<td><div class="badge badge-success">Active</div></td>
 							@else

@@ -15,11 +15,12 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', 'HomeController@index')->name('admin.home');
+Auth::routes();
+//Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['namespace'=>'Admin'], function(){
 	/* Dashboard */
 	Route::get('admin/dashboard', 'DashboardController@index')->name('admin.dashboard');
-
 	/* card type */
 	Route::get('admin/card_type/create', 'CardTypeController@create')->name('admin.card_type.create');
 	Route::post('admin/card_type/store', 'CardTypeController@store')->name('admin.card_type.store');
@@ -127,8 +128,7 @@ Route::group(['namespace'=>'Admin'], function(){
 
 });
 
-Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
+
 
 
 
