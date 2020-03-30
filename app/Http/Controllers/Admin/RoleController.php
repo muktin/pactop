@@ -12,6 +12,11 @@ use App\Http\Requests\RoleformValidation;
 
 class RoleController extends Controller
 {
+	 public function __construct()
+    {
+        $this->middleware('auth');
+		
+    }
     /**
      * Display a listing of the resource.
      *
@@ -40,7 +45,8 @@ class RoleController extends Controller
      */
     public function view()
     {
-		$permissionDatas=Permission::where('status',1)->orderBy('id', 'desc')->get();
+		DB::enableQueryLog();
+		$permissionDatas=Permission::where('status',1)->orderBy('id', 'desc')->get();		
 	    $roles=Role::all();
         return view('admin.role.list',['roles'=>$roles],['permissionDatas'=>$permissionDatas]);
     }
@@ -139,40 +145,45 @@ class RoleController extends Controller
     public function assignPermission(request $request)
     {
 		// get all role id
-		$permissionassign = $request->input('permissionassign');
-		//print_r($permissionassign);
-		//die;
-		if(!empty($permissionassign)){
-		// get user id with mapping multiple role id
+		$permissionassign = $request->get('permissionassign');
+		//print_r($permissionassign);die;
+		// get role id from user selection
 		$role_id = $request->input('role_id');
-		//print_r($role_id);
-		//die;
-		
-			foreach($permissionassign as $permissionId){
-				
-				$users = DB::table('role_permission')
-						 ->select('role_id','permission_id')
-						 ->where('role_id', $role_id)
-						  ->where('permission_id', $permissionId)
-						 ->get();
-				if(count($users) > 0){
-					 DB::table('role_permission')
-					 	 ->where('role_id', $role_id)
-						 ->where('permission_id', $permissionId)
-					 	->delete();
-					
-				}else{
-					 DB::table('role_permission')->insert([
-						'role_id' => $role_id,
-						'permission_id' => $permissionId,
-						'created_by' => Auth::user()->id,
-						'updated_by' => Auth::user()->id
-					]);
-				} 			
+		// if condition check not empty 
+		DB::table('role_permission')
+			->where('role_id', $role_id)
+			->update(['status' => 0]);
+		if(!empty($permissionassign) && !empty($role_id)){
+			// for all permission id and role id checked if not availanble in table then insert if available data in table then update.
+			foreach($permissionassign as $key => $permissionId){
+				if(strtolower($permissionId) =='on') {
+					$permissionId=$key;
+					//DB::enableQueryLog();
+						$users = DB::table('role_permission')
+							->select('status')
+							->where('role_id', $role_id)
+							->where('permission_id', $permissionId)
+							->get();
+							//$quries = DB::getQueryLog();
+					if(count($users) > 0){						
+						DB::table('role_permission')
+							->where('role_id', $role_id)
+							->where('permission_id', $permissionId)
+							->update(['status' => 1]);
+					}else{			
+						 DB::table('role_permission')->insert([
+							'role_id' => $role_id,
+							'permission_id' => $permissionId,
+							'status' => 1,
+							'created_by' => Auth::user()->id,
+							'updated_by' => Auth::user()->id
+						]);
+					} 			
+				}
 			}
-		return redirect('admin/role/view')->with('sucess', 'User Role mapping has been mapped successfully!!');		
+			return redirect('admin/role/view')->with('sucess', 'Role has been mapped successfully!!');		
 		}else{
-			return redirect('admin/role/view')->with('sucess', 'Select minimum one role!!');
+			return redirect('admin/role/view')->with('error', 'You must check at least one permission!!!');
 		}
 	}
 }

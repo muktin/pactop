@@ -11,7 +11,7 @@ class userTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('pact_user')->insert([
+        DB::table('user')->insert([
             'firstName' => Str::random(10),
             'lastName' => Str::random(10),
             'email' => Str::random(10).'@getnada.com',

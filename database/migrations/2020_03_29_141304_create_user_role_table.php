@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUseRolesTable extends Migration
+class CreateUserRoleTable extends Migration
 {
     /**
      * Run the migrations.
@@ -17,6 +17,7 @@ class CreateUseRolesTable extends Migration
             $table->id();
 			$table->integer('user_id');
 			$table->integer('role_id');
+			$table->tinyInteger('status')->default('0');
 			$table->integer('created_by');
             $table->integer('updated_by');
             $table->timestamps();

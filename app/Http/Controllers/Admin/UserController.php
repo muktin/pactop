@@ -173,36 +173,42 @@ class UserController extends Controller
     {
 		// get all role id
 		$roleassign = $request->input('roleassign');
-		//print_r($roleassign);
-		//die;
-		if(!empty($roleassign)){
 		// get user id with mapping multiple role id
 		$user_id = $request->input('user_id');
-			foreach($roleassign as $roleId){
-				
-				$users = DB::table('user_role')
-						 ->select('role_id','user_id')
-						 ->where('user_id', $user_id)
-						 ->where('role_id', $roleId)
-						 ->get();
-				if(count($users) > 0){
-					 DB::table('user_role')
-					 	->where('user_id', $user_id)
-					 	 ->where('role_id', $roleId)
-					 	->delete();
-					
-				}else{
-					 DB::table('user_role')->insert([
-						'user_id' => $user_id,
-						'role_id' => $roleId,
-						'created_by' => Auth::user()->id,
-						'updated_by' => Auth::user()->id
-					]);
-				} 			
-			}
-		return redirect('admin/user/view')->with('sucess', 'User Role mapping has been mapped successfully!!');		
+		DB::table('user_role')
+			->where('user_id', $user_id)
+			->update(['status' => 0]);
+		// if condition check not empty 
+		if(!empty($roleassign) && !empty($user_id)){
+				foreach($roleassign as $rolekey => $roleId){
+					if(strtolower($roleId) =='on') {
+						$roleId=$rolekey;
+						$users = DB::table('user_role')
+								 ->select('status')
+								 ->where('user_id', $user_id)
+								 ->where('role_id', $roleId)
+								 ->get();
+						if(count($users) > 0){
+							 DB::table('user_role')
+								->where('user_id', $user_id)
+								->where('role_id', $roleId)
+								->update(['status' => 1]);
+							
+						}else{
+							 DB::table('user_role')->insert([
+								'user_id' => $user_id,
+								'role_id' => $roleId,
+								'status' => 1,
+								'created_by' => Auth::user()->id,
+								'updated_by' => Auth::user()->id
+							]);
+						} 
+								
+					}
+				}
+			return redirect('admin/user/view')->with('sucess', 'User Role mapping has been mapped successfully!!');		
 		}else{
-			return redirect('admin/user/view')->with('sucess', 'Select minimum one role!!');
+			return redirect('admin/user/view')->with('error', 'You must check at least one role!!!');
 		}
 	}
 	

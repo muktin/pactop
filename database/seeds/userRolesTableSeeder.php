@@ -11,7 +11,7 @@ class userRolesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('pact_userRoles')->insert([
+        DB::table('userRoles')->insert([
             'userId' => 1,
             'roleId' => 1,
             'status' => 0,
