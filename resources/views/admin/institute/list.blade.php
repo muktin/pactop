@@ -36,11 +36,14 @@
 							<td>{{ $institute->addressId }} </td>
 							<td>{{ $institute->instituteTypeId }} </td>
 							@if($institute->status =='1')
-							<td><div class="badge badge-success">Active</div></td>
+							<td>
+								<a class="badge badge-success activeinactive" data-toggle="modal" data-target="#basicModal" onClick="InstituteAjaxCallActiveDeactive({{ $institute->id }})" >Active</a>
+								</td>
 							@else
-							<td><div class="badge badge-danger">Not Active</div></td>
+							<td><a class="badge badge-danger activeinactive" data-toggle="modal" data-target="#basicModal" onClick="InstituteAjaxCallActiveDeactive({{ $institute->id }})" >Inactive</a></td>
 							@endif
-							<td>{{ $institute->created_by }}</td>
+							
+							<td>{{ Auth::user()->name }}</td>
                             <td>{{ $institute->created_at }}</td>
 							<td><a href="{{ route('admin.institute.show', ['id' => $institute->id]) }}"><i class="far fa-eye"></i></a>&nbsp;<a href="{{ route('admin.institute.edit', ['id' => $institute->id]) }}"><i class="far fa-edit"></i></a>&nbsp;<i class="fas fa-trash-alt"></i></td>
 							 </tr>

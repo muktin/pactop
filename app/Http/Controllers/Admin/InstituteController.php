@@ -134,4 +134,26 @@ class InstituteController extends Controller
     {
         //
     }
+	
+	// active or inactive function
+	public function ajaxCallActiveDeactive(Request $request)
+	{
+		$role_id = $request->input('id');
+		
+		$InstituteDetails=Institute::find($role_id);
+		
+		if($InstituteDetails->status == '1'){
+			$status=0;
+		}else{
+			$status=1;
+		}
+		
+		$InstituteDetails->status			 = $status;
+		$InstituteDetails->updated_by		 = Auth::user()->id;
+		if($InstituteDetails->save()){
+		  return redirect('admin/user/view')->with('sucess', 'Status has been updated successfully!!');
+		}else{
+		  return redirect('admin/user/view')->with('error', 'Status has been not updated please try agian!!');
+		}		
+	}
 }

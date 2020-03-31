@@ -186,4 +186,26 @@ class RoleController extends Controller
 			return redirect('admin/role/view')->with('error', 'You must check at least one permission!!!');
 		}
 	}
+	
+	// active or inactive function
+	public function ajaxCallActiveDeactive(Request $request)
+	{
+		$role_id = $request->input('id');
+		
+		$RoleDetails=Role::find($role_id);
+		
+		if($RoleDetails->status == '1'){
+			$status=0;
+		}else{
+			$status=1;
+		}
+		
+		$RoleDetails->status			 = $status;
+		$RoleDetails->updated_by		 = Auth::user()->id;
+		if($RoleDetails->save()){
+		  return redirect('admin/user/view')->with('sucess', 'Status has been updated successfully!!');
+		}else{
+		  return redirect('admin/user/view')->with('error', 'Status has been not updated please try agian!!');
+		}		
+	}
 }

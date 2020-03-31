@@ -57,12 +57,10 @@
 					</td>
 					@if($user->status =='1')
 					<td>
-						<button class="badge badge-success"  onClick="ActiveDeactive('7')" type="button">Active</button>
+						<a class="badge badge-success activeinactive" data-toggle="modal" data-target="#basicModal" onClick="UserAjaxCallActiveDeactive({{ $user->id }})" >Active</a>
 						</td>
 					@else
-					<td><div class="badge badge-danger">
-						Not Active
-						</div></td>
+					<td><a class="badge badge-danger activeinactive" data-toggle="modal" data-target="#basicModal" onClick="AjaxCallActiveDeactive({{ $user->id }})" >Inactive</a></td>
 					@endif 
 					<td>{{ Auth::user()->name }}</td>
 					<td>{{ $user->created_at }}</td>

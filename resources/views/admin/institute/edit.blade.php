@@ -43,19 +43,16 @@
 								<option value='4'>Instutite type4</option>
 								<option value='5'>Instutite type5</option>
 								<option value='6'>Instutite type6</option>
-								
 							  </select>
 							</div>
 	                    </div>
-		                  
-					</div>
-								
+					</div>	
 					<div class="row">
 	 					<div class="col-12 col-md-6 col-lg-6">
 							<div class="form-group">
 							  <label>Status</label>
 							  <select class="form-control" name='istatus'  required="">
-							   <option value=''>Select</option>
+							    <option value=''>Select</option>
 								<option value='1'>Active</option>
 								<option value='0'>Deactive</option>
 							  </select>

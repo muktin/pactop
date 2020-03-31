@@ -38,7 +38,13 @@
 								Assign
 								</button>
 							  </div></td>
-                            <td>{{ $role->status }}</td>
+							  @if($role->status =='1')
+								<td>
+									<a class="badge badge-success activeinactive" data-toggle="modal" data-target="#basicModal" onClick="RoleAjaxCallActiveDeactive({{ $role->id }})" >Active</a>
+									</td>
+								@else
+								<td><a class="badge badge-danger activeinactive" data-toggle="modal" data-target="#basicModal" onClick="RoleAjaxCallActiveDeactive({{ $role->id }})" >Inactive</a></td>
+								@endif 
 							<td>{{ Auth::user()->name }}</td>
                             <td>{{ $role->created_at }}</td>
                             <td>

@@ -125,6 +125,18 @@ Route::group(['namespace'=>'Admin'], function(){
 	
 	// for assign Permission routing
 	Route::post('admin/role/assignPermission', 'RoleController@assignPermission')->name('admin.role.assignPermission');
+	
+	// for user active or inactive
+	Route::get('admin/user/ajaxCallActiveDeactive', 'UserController@ajaxCallActiveDeactive')->name('admin.user.ajaxCallActiveDeactive');
+	
+	// for role active or inactive
+	Route::post('admin/role/ajaxCallActiveDeactive', 'RoleController@ajaxCallActiveDeactive')->name('admin.role.ajaxCallActiveDeactive');
+	
+	// for permission active or inactive
+	Route::post('admin/permission/ajaxCallActiveDeactive', 'PermissionController@ajaxCallActiveDeactive')->name('admin.permission.ajaxCallActiveDeactive');
+	
+	// for permission active or inactive
+	Route::post('admin/institute/ajaxCallActiveDeactive', 'InstituteController@ajaxCallActiveDeactive')->name('admin.institute.ajaxCallActiveDeactive');
 
 });
 

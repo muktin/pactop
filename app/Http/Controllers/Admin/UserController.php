@@ -87,6 +87,26 @@ class UserController extends Controller
 		$roleData=Role::where('status',1)
 				->orderBy('id', 'desc')
 				 ->get();
+				
+		$data=array();
+		foreach($roleData as $roleDatas){
+			/*
+			$users = DB::table('user_role')
+								 ->select('status')
+								 ->where('user_id', $user_id)
+								 ->where('role_id', $roleId)
+								 ->get();
+			$data['roleData']=$roleDatas;
+			$data['status']=0;
+
+			*/	
+		}
+		// echo "<pre>";
+			//print_r($data);	 
+				 
+				 
+			// die; 	 
+				 
 		$userData=Userdetail::all();
 		return view('admin.user.list',['users'=>$userData],['rolesData'=>$roleData]);
     }
@@ -99,8 +119,6 @@ class UserController extends Controller
      */
     public function show($id)
     {
-
-
         $userviewData=Userdetail::find($id);
         return view('admin.user.view',['users'=>$userviewData]);
     }
@@ -210,6 +228,25 @@ class UserController extends Controller
 		}else{
 			return redirect('admin/user/view')->with('error', 'You must check at least one role!!!');
 		}
+	}
+	// active or inactive function
+	public function ajaxCallActiveDeactive(Request $request)
+	{
+		$user_id = $request->input('id');
+		$userDetails=Userdetail::find($user_id);
+		if($userDetails->status == '1'){
+			$status=0;
+		}else{
+			$status=1;
+		}
+		
+		$userDetails->status			 = $status;
+		$userDetails->updated_by		 = Auth::user()->id;
+		if($userDetails->save()){
+		  return redirect('admin/user/view')->with('sucess', 'Data has been updated successfully!!');
+		}else{
+		  return redirect('admin/user/view')->with('error', 'Data has been not updated please try agian!!');
+		}		
 	}
 	
 

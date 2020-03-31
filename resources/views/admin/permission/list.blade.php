@@ -33,7 +33,13 @@
                             <td>{{ $permission->permissionName }}</td>
 							<td>{{ $permission->permissionUrl }}</td>
 							<td>{{ $permission->customData }}</td>
-                            <td>{{ "$permission->status" === "1" ? "Active" : "Deactive" }}</td>
+							@if($permission->status =='1')
+							<td>
+								<a class="badge badge-success activeinactive" data-toggle="modal" data-target="#basicModal" onClick="PermissionAjaxCallActiveDeactive({{ $permission->id }})" >Active</a>
+								</td>
+							@else
+							<td><a class="badge badge-danger activeinactive" data-toggle="modal" data-target="#basicModal" onClick="PermissionAjaxCallActiveDeactive({{ $permission->id }})" >Inactive</a></td>
+							@endif 
 							<td>{{ Auth::user()->name }}</td>
                             <td>{{ $permission->created_at }}</td>
                             <td>
