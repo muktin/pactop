@@ -1,6 +1,7 @@
 @extends('admin/layouts/app')
 
 @section('main-content')
+
 <!-- Content Wrapper. Contains page content -->
    <section class="section">
           <div class="row ">
@@ -219,7 +220,6 @@
               </div>
             </div>
           </div>
-        
         </section>
 
   @endsection

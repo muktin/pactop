@@ -37,3 +37,10 @@ div.waa {
 .withtablemodelpermission {
 	max-width: 700px !important;
 }
+
+.activeinactive{
+	cursor: grabbing;
+    color: #fff !important;
+    font-weight: bold;
+}
+

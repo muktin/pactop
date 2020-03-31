@@ -38,7 +38,13 @@
 								Assign
 								</button>
 							  </div></td>
-                            <td>{{ $role->status }}</td>
+							  @if($role->status =='1')
+								<td>
+									<a class="badge badge-success activeinactive" data-toggle="modal" data-target="#basicModal" onClick="RoleAjaxCallActiveDeactive({{ $role->id }})" >Active</a>
+									</td>
+								@else
+								<td><a class="badge badge-danger activeinactive" data-toggle="modal" data-target="#basicModal" onClick="RoleAjaxCallActiveDeactive({{ $role->id }})" >Inactive</a></td>
+								@endif 
 							<td>{{ Auth::user()->name }}</td>
                             <td>{{ $role->created_at }}</td>
                             <td>
@@ -59,12 +65,15 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="formModal">User Roles</h5>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<div class="alerts"> </div>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-			   <form class="needs-validation" novalidate="" action="{{ route('admin.role.assignPermission') }}" method="POST">
-					 @csrf
+			   <form class="needs-validation" novalidate="" action="{{ route('admin.role.assignPermission') }}" method="POST" onsubmit="return CheckValidaCheckBoxPermission()">
+				@csrf
+				<input type="hidden" name="role_id"  id="mapping_role_id" value="">
 			   <div class="row">
 				  <div class="col-12">
 					<div class="card">
@@ -87,7 +96,7 @@
 							  </tr>
 							</thead>
 							<tbody>
-							<input type="text" name="role_id"  id="mapping_role_id" value="">
+							
 							@if(!$permissionDatas->isEmpty())
 							  @foreach($permissionDatas as $permissionData)
 							  <tr>
@@ -97,7 +106,7 @@
 								<td>{{ Auth::user()->name }}</td>
 								<td class="text-center pt-2">
 								  <div class="custom-checkbox custom-control">
-									<input type="checkbox" data-checkboxes="mygroup" class="custom-control-input"  id="checkbox-{{ $permissionData->id }}" name="permissionassign[{{ $permissionData->id }}]" value="{{ $permissionData->id }}">
+									<input type="checkbox" data-checkboxes="mygroup" class="custom-control-input permissionassign"  id="checkbox-{{ $permissionData->id }}" name="permissionassign[{{ $permissionData->id }}]">
 									<label for="checkbox-{{ $permissionData->id }}" class="custom-control-label">&nbsp;</label>
 								  </div>
 								</td>

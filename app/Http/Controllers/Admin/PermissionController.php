@@ -126,4 +126,26 @@ class PermissionController extends Controller
     {
         //
     }
+	
+	// active or inactive function
+	public function ajaxCallActiveDeactive(Request $request)
+	{
+		$role_id = $request->input('id');
+		
+		$PermissionDetails=Permission::find($role_id);
+		
+		if($PermissionDetails->status == '1'){
+			$status=0;
+		}else{
+			$status=1;
+		}
+		
+		$PermissionDetails->status			 = $status;
+		$PermissionDetails->updated_by		 = Auth::user()->id;
+		if($PermissionDetails->save()){
+		  return redirect('admin/user/view')->with('sucess', 'Status has been updated successfully!!');
+		}else{
+		  return redirect('admin/user/view')->with('error', 'Status has been not updated please try agian!!');
+		}		
+	}
 }

@@ -1,5 +1,6 @@
  <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
   <title>Home | Dashboard</title>
   <!-- General CSS Files -->
   <link rel="stylesheet" href="{{ url('/assets/css/app.min.css') }}">
@@ -12,3 +13,4 @@
   <!-- Custom style CSS -->
   <link rel="stylesheet" href="{{ url('/assets/css/custom.css') }}">
   <link rel='shortcut icon' type='image/x-icon' href="{{ url('/assets/img/favicon.ico') }}" />
+

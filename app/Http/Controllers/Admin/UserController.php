@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UserformValidation;
 
+
 class UserController extends Controller
 {
     public function __construct()
@@ -23,7 +24,8 @@ class UserController extends Controller
      */
     public function index()
     {
-       //return view('admin.user.show');
+       return view('admin.user.show');
+
     }
 
     /**
@@ -33,7 +35,7 @@ class UserController extends Controller
      */
     public function create()
     {
-	    return view('admin.user.create');
+        return view('admin.user.create');
     }
 
     /**
@@ -42,6 +44,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(UserformValidation $request)
     {
 		try {
@@ -84,6 +87,26 @@ class UserController extends Controller
 		$roleData=Role::where('status',1)
 				->orderBy('id', 'desc')
 				 ->get();
+				
+		$data=array();
+		foreach($roleData as $roleDatas){
+			/*
+			$users = DB::table('user_role')
+								 ->select('status')
+								 ->where('user_id', $user_id)
+								 ->where('role_id', $roleId)
+								 ->get();
+			$data['roleData']=$roleDatas;
+			$data['status']=0;
+
+			*/	
+		}
+		// echo "<pre>";
+			//print_r($data);	 
+				 
+				 
+			// die; 	 
+				 
 		$userData=Userdetail::all();
 		return view('admin.user.list',['users'=>$userData],['rolesData'=>$roleData]);
     }
@@ -98,7 +121,6 @@ class UserController extends Controller
     {
         $userviewData=Userdetail::find($id);
         return view('admin.user.view',['users'=>$userviewData]);
- 
     }
 
     /**
@@ -109,7 +131,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-       
+      
         $usereditData=Userdetail::find($id);
         return view('admin.user.edit',['users'=>$usereditData]);
     }
@@ -121,6 +143,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function update(UserformValidation $request, $id)
     {
 	  $validated = $request->validated();
@@ -143,6 +166,7 @@ class UserController extends Controller
 		  return redirect('admin/user/view')->with('error', 'Data has been not updated please try agian!!');
 	  }
 	 
+
     }
 
     /**
@@ -155,7 +179,7 @@ class UserController extends Controller
     {
         //
     }
-	
+
 	
 	/**
      * Store a newly created resource in storage.
@@ -167,37 +191,63 @@ class UserController extends Controller
     {
 		// get all role id
 		$roleassign = $request->input('roleassign');
-		//print_r($roleassign);
-		//die;
-		if(!empty($roleassign)){
 		// get user id with mapping multiple role id
 		$user_id = $request->input('user_id');
-			foreach($roleassign as $roleId){
-				
-				$users = DB::table('user_role')
-						 ->select('role_id','user_id')
-						 ->where('user_id', $user_id)
-						 ->where('role_id', $roleId)
-						 ->get();
-				if(count($users) > 0){
-					 DB::table('user_role')
-					 	->where('user_id', $user_id)
-					 	 ->where('role_id', $roleId)
-					 	->delete();
-					
-				}else{
-					 DB::table('user_role')->insert([
-						'user_id' => $user_id,
-						'role_id' => $roleId,
-						'created_by' => Auth::user()->id,
-						'updated_by' => Auth::user()->id
-					]);
-				} 			
-			}
-		return redirect('admin/user/view')->with('sucess', 'User Role mapping has been mapped successfully!!');		
+		DB::table('user_role')
+			->where('user_id', $user_id)
+			->update(['status' => 0]);
+		// if condition check not empty 
+		if(!empty($roleassign) && !empty($user_id)){
+				foreach($roleassign as $rolekey => $roleId){
+					if(strtolower($roleId) =='on') {
+						$roleId=$rolekey;
+						$users = DB::table('user_role')
+								 ->select('status')
+								 ->where('user_id', $user_id)
+								 ->where('role_id', $roleId)
+								 ->get();
+						if(count($users) > 0){
+							 DB::table('user_role')
+								->where('user_id', $user_id)
+								->where('role_id', $roleId)
+								->update(['status' => 1]);
+							
+						}else{
+							 DB::table('user_role')->insert([
+								'user_id' => $user_id,
+								'role_id' => $roleId,
+								'status' => 1,
+								'created_by' => Auth::user()->id,
+								'updated_by' => Auth::user()->id
+							]);
+						} 
+								
+					}
+				}
+			return redirect('admin/user/view')->with('sucess', 'User Role mapping has been mapped successfully!!');		
 		}else{
-			return redirect('admin/user/view')->with('sucess', 'Select minimum one role!!');
+			return redirect('admin/user/view')->with('error', 'You must check at least one role!!!');
 		}
 	}
+	// active or inactive function
+	public function ajaxCallActiveDeactive(Request $request)
+	{
+		$user_id = $request->input('id');
+		$userDetails=Userdetail::find($user_id);
+		if($userDetails->status == '1'){
+			$status=0;
+		}else{
+			$status=1;
+		}
+		
+		$userDetails->status			 = $status;
+		$userDetails->updated_by		 = Auth::user()->id;
+		if($userDetails->save()){
+		  return redirect('admin/user/view')->with('sucess', 'Data has been updated successfully!!');
+		}else{
+		  return redirect('admin/user/view')->with('error', 'Data has been not updated please try agian!!');
+		}		
+	}
 	
+
 }

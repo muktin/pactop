@@ -6,8 +6,7 @@
         </div>
       </footer>
     </div>
-  </div>
-  
+  </div>  
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
 function myOnloadFunc() {
@@ -33,9 +32,10 @@ setTimeout(function(){
   <!-- Page Specific JS File -->
   <script src="{{ url('/assets/js/page/index.js') }}"></script>
    <!-- JS Libraies -->
-  <script src="assets/bundles/izitoast/js/iziToast.min.js"></script>
+  <script src="{{ url('assets/bundles/izitoast/js/iziToast.min.js') }}"></script>
   <!-- Page Specific JS File -->
-  <script src="assets/js/page/toastr.js"></script>
+  <script src="{{ url('assets/js/page/toastr.js') }}"></script>
+
   <!-- Template JS File -->
   <script src="{{ url('/assets/js/scripts.js') }}"></script>
   <!-- Custom JS File -->
