@@ -203,7 +203,7 @@ class RoleController extends Controller
 		$RoleDetails->status			 = $status;
 		$RoleDetails->updated_by		 = Auth::user()->id;
 		if($RoleDetails->save()){
-		  return redirect('admin/user/view')->with('sucess', 'Status has been updated successfully!!');
+			echo  'success';
 		}else{
 		  return redirect('admin/user/view')->with('error', 'Status has been not updated please try agian!!');
 		}		

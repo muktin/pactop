@@ -34,116 +34,167 @@ function CheckValidaCheckBoxPermission(){
 }
 
 function UserAjaxCallActiveDeactive(id){
+	
 	$.ajaxSetup({
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		}
 	});
-	var text = $(this).html();
-	let isActive = confirm("Do you want Active/Inactive?");
-	 
-	if(isActive == true){
-		$.ajax({
-			url: "ajaxCallActiveDeactive",
-			method: 'get',
-			data: {
-				id: id,
-			  },
-			  success: function(result){
-				location.reload(true);
-			  }
-		});
-	}  
-}
+      swal({
+          title: "Are you sure?",
+          text: "",
+          icon: "warning",
+          buttons: [
+            'No, cancel it!',
+            'Yes, I am sure!'
+          ],
+          dangerMode: true,
+        }).then(function(isConfirm) {
+			
+          if (isConfirm) {
+			  swal({
+              title: '',
+              text: 'Status has been updated successfully!',
+              icon: 'success'
+            }).then(function() {
+             $.ajax({
+				url: "ajaxCallActiveDeactive",
+				method: 'get',
+				data: {id: id},
+				success: function(result){
+					$('.loader').show();
+					location.reload(true);
+				}
+			});
+            });
+			
+           
+        } else {
+            swal("Cancelled", "", "error");
+          }
+        });  
+	}
 
-function RoleAjaxCallActiveDeactive(id){
+function RoleAjaxCallActiveDeactive(id)
+{
+	
 	$.ajaxSetup({
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		}
 	});
-	let isActive = confirm("Do you want Active/Inactive?");
-	 
-	if(isActive == true){
-		$.ajax({
-			url: "ajaxCallActiveDeactive",
-			method: 'POST',
-			data: {
-				id: id,
-			  },
-			  success: function(result){
-				  alert(result);
-				  return false
-				//location.reload(true);
-			  }
-		});
-	}  
-}
-
-function RoleAjaxCallActiveDeactive(id){
-	$.ajaxSetup({
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		}
-	});
-	let isActive = confirm("Do you want Active/Inactive?");
-	 
-	if(isActive == true){
-		$.ajax({
-			url: "ajaxCallActiveDeactive",
-			method: 'POST',
-			data: {
-				id: id,
-			  },
-			  success: function(result){
-				location.reload(true);
-			  }
-		});
-	}  
-}
+      swal({
+          title: "Are you sure?",
+          text: "",
+          icon: "warning",
+          buttons: [
+            'No, cancel it!',
+            'Yes, I am sure!'
+          ],
+          dangerMode: true,
+        }).then(function(isConfirm) {
+			
+          if (isConfirm) {
+			  swal({
+              title: '',
+              text: 'Status has been updated successfully!',
+              icon: 'success'
+            }).then(function() {
+				$.ajax({
+					url: "ajaxCallActiveDeactive",
+					method: 'POST',
+					data: {
+						id: id,
+					  },
+					  success: function(result){
+						location.reload(true);
+					  }
+				});
+            });
+			
+           
+        } else {
+            swal("Cancelled", "", "error");
+          }
+        });  
+	}
 
 function PermissionAjaxCallActiveDeactive(id){
+	
 	$.ajaxSetup({
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		}
 	});
-	let isActive = confirm("Do you want Active/Inactive?");
-	 
-	if(isActive == true){
-		$.ajax({
-			url: "ajaxCallActiveDeactive",
-			method: 'POST',
-			data: {
-				id: id,
-			  },
-			  success: function(result){
-				location.reload(true);
-			  }
-		});
-	}  
+      swal({
+          title: "Are you sure?",
+          text: "",
+          icon: "warning",
+          buttons: [
+            'No, cancel it!',
+            'Yes, I am sure!'
+          ],
+          dangerMode: true,
+        }).then(function(isConfirm) {
+			
+          if (isConfirm) {
+			  swal({
+              title: '',
+              text: 'Status has been updated successfully!',
+              icon: 'success'
+            }).then(function() {
+				$.ajax({
+					url: "ajaxCallActiveDeactive",
+					method: 'POST',
+					data: {id: id},
+					success: function(result){
+						location.reload(true);
+					}
+				});
+			});
+        } else {
+            swal("Cancelled", "", "error");
+          }
+        });  
 }
 
 function InstituteAjaxCallActiveDeactive(id){
+	
 	$.ajaxSetup({
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		}
 	});
-	let isActive = confirm("Do you want Active/Inactive?");
-	 
-	if(isActive == true){
-		$.ajax({
-			url: "ajaxCallActiveDeactive",
-			method: 'POST',
-			data: {
-				id: id,
-			  },
-			  success: function(result){
-				location.reload(true);
-			  }
-		});
-	}  
+      swal({
+          title: "Are you sure?",
+          text: "",
+          icon: "warning",
+          buttons: [
+            'No, cancel it!',
+            'Yes, I am sure!'
+          ],
+          dangerMode: true,
+        }).then(function(isConfirm) {
+			
+          if (isConfirm) {
+			  swal({
+              title: '',
+              text: 'Status has been updated successfully!',
+              icon: 'success'
+            }).then(function() {
+				$.ajax({
+					url: "ajaxCallActiveDeactive",
+					method: 'POST',
+					data: {id: id},
+					success: function(result){
+						location.reload(true);
+					}
+				});
+			});
+        } else {
+            swal("Cancelled", "", "error");
+          }
+        });  
 }
 
 
